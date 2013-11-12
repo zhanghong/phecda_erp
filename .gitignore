@@ -1,0 +1,10 @@
+.bundle
+config/*.yml
+log/*.log
+tmp
+*.swp
+.idea
+.DS_Store
+.ruby-gemset
+.ruby-version
+.rvmrc
