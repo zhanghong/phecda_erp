@@ -17,4 +17,6 @@
 #   #https://oauth.tbsandbox.com/authorize?response_type=code&client_id=1021670514&redirect_uri=http%3A%2F%2Ferp.zhanghong.com&from_site=fuwu
 # HT
 # Tb::Query.refresh_token
+
+Sys::Category.first.sync_to_taobao
 Tb::Query.refresh_sbsandbox_token
