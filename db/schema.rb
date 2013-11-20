@@ -12,7 +12,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20131119105327) do
-
   create_table "accounts", force: true do |t|
     t.string   "name"
     t.string   "key"
@@ -103,27 +102,6 @@ ActiveRecord::Schema.define(version: 20131119105327) do
     t.datetime "tb_modified_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "trade_sources", force: true do |t|
-    t.integer  "account_id"
-    t.string   "name"
-    t.string   "app_key"
-    t.string   "secret_key"
-    t.string   "session"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "trade_type"
-    t.integer  "fetch_quantity",      default: 20
-    t.integer  "fetch_time_circle",   default: 15
-    t.boolean  "high_pressure_valve", default: false
-    t.integer  "sid"
-    t.integer  "cid"
-    t.datetime "created"
-    t.datetime "modified"
-    t.string   "bulletin"
-    t.string   "title"
-    t.string   "description"
   end
 
   create_table "users", force: true do |t|
