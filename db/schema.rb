@@ -11,19 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131113092652) do
+ActiveRecord::Schema.define(version: 20131119105327) do
 
   create_table "accounts", force: true do |t|
     t.string   "name"
     t.string   "key"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "seller_name"
     t.string   "address"
     t.string   "phone"
     t.string   "deliver_bill_info"
     t.string   "point_out"
     t.string   "website"
+  end
+
+  create_table "sys_categories", force: true do |t|
+    t.string   "name",              limit: 30, default: ""
+    t.integer  "account_id",                   default: 0
+    t.string   "status",            limit: 20, default: ""
+    t.integer  "parent_id",                    default: 0
+    t.integer  "lft",                          default: 0
+    t.integer  "rgt",                          default: 0
+    t.integer  "depth",                        default: 0
+    t.integer  "use_days",                     default: 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "pic_url",                      default: ""
+    t.integer  "sort_order"
+    t.integer  "taobao_id",                    default: 0
+    t.datetime "taobao_updated_at"
   end
 
   create_table "taobao_app_tokens", force: true do |t|
@@ -45,12 +62,57 @@ ActiveRecord::Schema.define(version: 20131113092652) do
     t.boolean  "need_refresh",                            default: true
   end
 
+  create_table "tb_app_tokens", force: true do |t|
+    t.integer  "shop_id"
+    t.string   "user_id",       limit: 20, default: ""
+    t.string   "nick",          limit: 30
+    t.string   "access_token"
+    t.string   "token_type",    limit: 30
+    t.integer  "expires_in"
+    t.string   "refresh_token"
+    t.integer  "re_expires_in"
+    t.integer  "r1_expires_in"
+    t.integer  "r2_expires_in"
+    t.integer  "w1_expires_in"
+    t.integer  "w2_expires_in"
+    t.integer  "sub_user_id"
+    t.string   "sub_nick",      limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tb_app_tokens", ["shop_id"], name: "idx_by_shop_id", using: :btree
+
+  create_table "tb_categories", force: true do |t|
+    t.integer  "sys_category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tb_shops", force: true do |t|
+    t.integer  "account_id",     limit: 8,  default: 0
+    t.integer  "sid",                       default: 0
+    t.integer  "cid",                       default: 0
+    t.string   "nick",           limit: 30, default: ""
+    t.string   "title",          limit: 50, default: ""
+    t.string   "auth_type",      limit: 10, default: ""
+    t.string   "desc",                      default: ""
+    t.string   "bulletin",                  default: ""
+    t.string   "pic_path",                  default: ""
+    t.datetime "tb_created_at"
+    t.datetime "tb_modified_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "trade_sources", force: true do |t|
     t.integer  "account_id"
     t.string   "name"
     t.string   "app_key"
     t.string   "secret_key"
     t.string   "session"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "trade_type"
     t.integer  "fetch_quantity",      default: 20
     t.integer  "fetch_time_circle",   default: 15
@@ -62,10 +124,34 @@ ActiveRecord::Schema.define(version: 20131113092652) do
     t.string   "bulletin"
     t.string   "title"
     t.string   "description"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "name",                   limit: 20, default: "", null: false
+    t.string   "mobile",                 limit: 13, default: "", null: false
+    t.string   "email",                  limit: 40, default: "", null: false
+    t.string   "encrypted_password",                default: "", null: false
+    t.string   "role",                   limit: 15, default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                     default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",                   default: 0,  null: false
+    t.string   "unlock_token"
+    t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "trade_sources", ["account_id"], name: "index_trade_sources_on_account_id", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
