@@ -6,18 +6,15 @@ YAML::ENGINE.yamler = 'syck'
 config_file = File.join(Rails.root, "config", "taobao.yml")
 TaobaoFu.load(config_file) if FileTest::exists?(config_file)
 
-# select_source_function = %q{
-# 	def self.select_source(source_id)
-#     source = TradeSource.find(source_id)
+select_source_function = %q{
+	def self.select_app_session(app_session)
+    settings = {}
+    settings['app_key'] = app_session.app_key
+    settings['secret_key'] = app_session.app_secret
+    settings['session'] = app_session.session_key
+    settings['is_sandbox'] = app_session.is_sandbox
+    TaobaoFu.settings = settings
+  end
+}
 
-#     if source
-#       settings = {}
-#       settings['app_key'] = source.app_key
-#       settings['secret_key'] = source.secret_key
-#       settings['session'] = source.session
-#       TaobaoFu.settings = settings
-#     end
-#   end
-# }
-
-# TaobaoFu.module_eval(select_source_function)
+TaobaoFu.module_eval(select_source_function)

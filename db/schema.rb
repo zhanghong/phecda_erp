@@ -11,18 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131119105327) do
+ActiveRecord::Schema.define(version: 20131124065727) do
+
   create_table "accounts", force: true do |t|
-    t.string   "name"
-    t.string   "key"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.string   "seller_name"
-    t.string   "address"
-    t.string   "phone"
-    t.string   "deliver_bill_info"
-    t.string   "point_out"
-    t.string   "website"
+    t.string   "name",       limit: 30, default: ""
+    t.string   "phone",      limit: 13, default: ""
+    t.string   "email",      limit: 50, default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sys_categories", force: true do |t|
@@ -42,23 +38,27 @@ ActiveRecord::Schema.define(version: 20131119105327) do
     t.datetime "taobao_updated_at"
   end
 
-  create_table "taobao_app_tokens", force: true do |t|
-    t.integer  "account_id"
-    t.string   "access_token"
-    t.string   "taobao_user_id"
-    t.string   "taobao_user_nick"
-    t.string   "refresh_token"
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
-    t.datetime "last_refresh_at"
-    t.integer  "trade_source_id"
-    t.datetime "refresh_token_last_refresh_at"
-    t.integer  "re_expires_in",                 limit: 8
-    t.integer  "r1_expires_in",                 limit: 8
-    t.integer  "r2_expires_in",                 limit: 8
-    t.integer  "w1_expires_in",                 limit: 8
-    t.integer  "w2_expires_in",                 limit: 8
-    t.boolean  "need_refresh",                            default: true
+  create_table "tb_app_sessions", force: true do |t|
+    t.integer  "shop_id"
+    t.string   "nick",                     limit: 30
+    t.string   "app_key",                  limit: 20
+    t.string   "app_secret",               limit: 80
+    t.string   "session_key",              limit: 80
+    t.integer  "expires_at"
+    t.string   "refresh_token",            limit: 80
+    t.date     "refresh_token_expires_at"
+    t.string   "r1_expires_in"
+    t.boolean  "r1_can_refresh",                      default: false
+    t.string   "r2_expires_in"
+    t.boolean  "r2_can_refresh",                      default: false
+    t.string   "w1_expires_in"
+    t.boolean  "w1_can_refresh",                      default: false
+    t.string   "w2_expires_in"
+    t.boolean  "w2_can_refresh",                      default: false
+    t.boolean  "is_sandbox",                          default: false
+    t.boolean  "use_curl",                            default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tb_app_tokens", force: true do |t|
@@ -81,12 +81,6 @@ ActiveRecord::Schema.define(version: 20131119105327) do
   end
 
   add_index "tb_app_tokens", ["shop_id"], name: "idx_by_shop_id", using: :btree
-
-  create_table "tb_categories", force: true do |t|
-    t.integer  "sys_category_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "tb_shops", force: true do |t|
     t.integer  "account_id",     limit: 8,  default: 0
