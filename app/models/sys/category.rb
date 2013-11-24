@@ -1,3 +1,19 @@
+# create_table "sys_categories", force: true do |t|
+#   t.string   "name",              limit: 30, default: ""
+#   t.integer  "account_id",                   default: 0
+#   t.string   "status",            limit: 20, default: ""
+#   t.integer  "parent_id",                    default: 0
+#   t.integer  "lft",                          default: 0
+#   t.integer  "rgt",                          default: 0
+#   t.integer  "depth",                        default: 0
+#   t.integer  "use_days",                     default: 1
+#   t.datetime "created_at"
+#   t.datetime "updated_at"
+#   t.string   "pic_url",                      default: ""
+#   t.integer  "sort_order"
+#   t.integer  "taobao_id",                    default: 0
+#   t.datetime "taobao_updated_at"
+# end
 class Sys::Category < ActiveRecord::Base
   belongs_to  :account
 
