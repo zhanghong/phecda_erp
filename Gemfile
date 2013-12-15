@@ -18,6 +18,7 @@ gem 'taobao_fu_reload', "~> 1.1.2"
 gem 'devise'
 gem 'cancan'
 gem 'awesome_nested_set'
+gem "rails_12factor"
 
 group :doc do
  gem 'sdoc', require: false
@@ -25,4 +26,9 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'capistrano'
+  gem "capistrano-ext"
+  gem 'rvm-capistrano'
 end
+
+ruby "2.0.0"
