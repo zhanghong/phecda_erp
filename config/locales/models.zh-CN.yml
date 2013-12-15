@@ -1,0 +1,33 @@
+zh-CN:
+  activerecord:
+    models:
+      user: 用户
+    attributes:
+      user:
+        current_password: "当前密码"
+        password: "密码"
+        password_confirmation: "确认密码"
+        name: "姓名"
+        remember_me: "自动登录"
+
+      team:
+        name: 名称
+
+      team_membership:
+        user_email: 用户邮箱
+
+      daily_report:
+        emoji: How is your day?
+        done: 已完成的工作
+        doing: 进行中的工作
+        blocks: 目前遇到的阻碍
+
+  notifer:
+    welcome:
+      subject: 欢迎您注册使用 pico_bid.com
+
+  daily_report_mailer:
+    reminder:
+      subject: 工作日报填写提醒
+    daily_report_status:
+      subject: 工作日报汇总
