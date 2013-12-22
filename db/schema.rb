@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131124065727) do
+ActiveRecord::Schema.define(version: 20131215120204) do
 
   create_table "accounts", force: true do |t|
     t.string   "name",       limit: 30, default: ""
@@ -37,6 +37,27 @@ ActiveRecord::Schema.define(version: 20131124065727) do
     t.integer  "taobao_id",                    default: 0
     t.datetime "taobao_updated_at"
   end
+
+  create_table "sys_properties", force: true do |t|
+    t.integer  "account_id",            default: 0
+    t.string   "name",       limit: 30, default: ""
+    t.string   "status",     limit: 20, default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sys_properties", ["account_id", "name"], name: "idx_by_account_id_and_name", using: :btree
+  add_index "sys_properties", ["account_id", "status"], name: "idx_by_account_id_and_status", using: :btree
+
+  create_table "sys_property_values", force: true do |t|
+    t.integer  "account_id",             default: 0
+    t.integer  "property_id",            default: 0
+    t.string   "name",        limit: 20, default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sys_property_values", ["account_id", "property_id"], name: "idx_by_account_id_and_property_id", using: :btree
 
   create_table "tb_app_sessions", force: true do |t|
     t.integer  "shop_id"
