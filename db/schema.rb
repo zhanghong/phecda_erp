@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131215120204) do
+ActiveRecord::Schema.define(version: 20131215125006) do
 
   create_table "accounts", force: true do |t|
     t.string   "name",       limit: 30, default: ""
@@ -38,6 +38,21 @@ ActiveRecord::Schema.define(version: 20131215120204) do
     t.datetime "taobao_updated_at"
   end
 
+  create_table "sys_products", force: true do |t|
+    t.integer "account_id"
+    t.integer "category_id",                default: 0
+    t.string  "title",          limit: 100, default: ""
+    t.integer "num",                        default: 0
+    t.text    "description"
+    t.string  "approve_status", limit: 15,  default: "instock"
+    t.boolean "has_discount",               default: false
+    t.string  "image"
+    t.string  "outer_id"
+    t.string  "product_id",     limit: 30
+  end
+
+  add_index "sys_products", ["account_id", "category_id"], name: "idx_by_account_id_and_category_id", using: :btree
+
   create_table "sys_properties", force: true do |t|
     t.integer  "account_id",            default: 0
     t.string   "name",       limit: 30, default: ""
@@ -58,6 +73,24 @@ ActiveRecord::Schema.define(version: 20131215120204) do
   end
 
   add_index "sys_property_values", ["account_id", "property_id"], name: "idx_by_account_id_and_property_id", using: :btree
+
+  create_table "sys_sku_property_values", force: true do |t|
+    t.integer  "sku_id",            default: 0
+    t.integer  "property_value_id", default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sys_sku_property_values", ["sku_id", "property_value_id"], name: "idx_by_sku_id_and_property_id", using: :btree
+
+  create_table "sys_skus", force: true do |t|
+    t.integer  "account_id",            default: 0
+    t.string   "product_id", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sys_skus", ["account_id", "product_id"], name: "idx_by_account_id_and_product_id", using: :btree
 
   create_table "tb_app_sessions", force: true do |t|
     t.integer  "shop_id"
