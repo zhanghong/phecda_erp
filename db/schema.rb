@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131215125006) do
+ActiveRecord::Schema.define(version: 20131222092803) do
 
   create_table "accounts", force: true do |t|
     t.string   "name",       limit: 30, default: ""
@@ -136,6 +136,60 @@ ActiveRecord::Schema.define(version: 20131215125006) do
 
   add_index "tb_app_tokens", ["shop_id"], name: "idx_by_shop_id", using: :btree
 
+  create_table "tb_categories", force: true do |t|
+    t.string   "name",       limit: 30, default: ""
+    t.integer  "shop_id",               default: 0
+    t.string   "status",     limit: 20, default: ""
+    t.integer  "parent_id",             default: 0
+    t.integer  "lft",                   default: 0
+    t.integer  "rgt",                   default: 0
+    t.integer  "depth",                 default: 0
+    t.integer  "use_days",              default: 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tb_categories", ["shop_id", "name"], name: "idx_by_shop_id_and_name", using: :btree
+
+  create_table "tb_products", force: true do |t|
+    t.integer  "shop_id"
+    t.integer  "category_id",                default: 0
+    t.string   "title",          limit: 100, default: ""
+    t.integer  "num",                        default: 0
+    t.text     "description"
+    t.string   "approve_status", limit: 15,  default: "instock"
+    t.boolean  "has_discount",               default: false
+    t.string   "image"
+    t.string   "outer_id"
+    t.string   "product_id",     limit: 20,  default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tb_products", ["shop_id", "category_id"], name: "idx_by_shop_id_and_category_id", using: :btree
+  add_index "tb_products", ["shop_id", "title"], name: "idx_by_shop_id_and_title", using: :btree
+
+  create_table "tb_properties", force: true do |t|
+    t.integer  "shop_id",               default: 0
+    t.string   "name",       limit: 30, default: ""
+    t.string   "status",     limit: 20, default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tb_properties", ["shop_id", "name"], name: "idx_by_shop_id_and_name", using: :btree
+  add_index "tb_properties", ["shop_id", "status"], name: "idx_by_shop_id_and_status", using: :btree
+
+  create_table "tb_property_values", force: true do |t|
+    t.integer  "shop_id",                default: 0
+    t.integer  "property_id",            default: 0
+    t.string   "name",        limit: 20, default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tb_property_values", ["shop_id", "property_id"], name: "idx_by_shop_id_and_property_id", using: :btree
+
   create_table "tb_shops", force: true do |t|
     t.integer  "account_id",     limit: 8,  default: 0
     t.integer  "sid",                       default: 0
@@ -151,6 +205,24 @@ ActiveRecord::Schema.define(version: 20131215125006) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "tb_sku_properties", force: true do |t|
+    t.integer  "sku_id",            default: 0
+    t.integer  "property_value_id", default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tb_sku_properties", ["sku_id", "property_value_id"], name: "idx_by_sku_id_and_property_id", using: :btree
+
+  create_table "tb_skus", force: true do |t|
+    t.integer  "shop_id",               default: 0
+    t.string   "product_id", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tb_skus", ["shop_id", "product_id"], name: "idx_by_shop_id_and_product_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name",                   limit: 20, default: "", null: false
