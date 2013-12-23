@@ -18,6 +18,8 @@ gem 'taobao_fu_reload', "~> 1.1.2"
 gem 'devise'
 gem 'cancan'
 gem 'awesome_nested_set'
+gem "rails-settings-cached", "0.3.1"
+require 'yaml'
 
 group :doc do
  gem 'sdoc', require: false

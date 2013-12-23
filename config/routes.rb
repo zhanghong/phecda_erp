@@ -5,6 +5,12 @@ PhecdaErp::Application.routes.draw do
     resources :categories
   end
 
+  resource  :oauths, only: [] do
+    collection  do
+      get :tb_callback
+    end
+  end
+
   devise_for :users
 
   # The priority is based upon order of creation: first created -> highest priority.

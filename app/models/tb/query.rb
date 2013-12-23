@@ -7,7 +7,7 @@ module Tb::Query
   	app_session = Tb::AppSession.where(shop_id: shop_id).first
   	if app_session
   		if true
-  			TaobaoFu.select_app_session(app_session)
+  			#TaobaoFu.select_app_session(app_session)
         TaobaoFu.get(options)
   		else
   			oauth_https_get(options, shop_id)
@@ -36,21 +36,18 @@ module Tb::Query
   end
 
   def self.get_oauth_token(shop_code)
-  	base_url = SETTINGS["oauth_token_url"]
+  	base_url = Settings.tb_token_url
   	sorted_params = {
   		code: shop_code,
   		grant_type: "authorization_code",
-  		client_id: SETTINGS["app_key"],
-  		client_secret: SETTINGS["secret_key"],
-  		redirect_uri: SETTINGS["oauth_callback_url"]
+  		client_id: Settings.tb_app_key,
+  		client_secret: Settings.tb_secret_key,
+  		redirect_uri: Settings.tb_callback_url
   	}
 
   	params_array = sorted_params.sort_by { |k,v| k.to_s }
     total_param = params_array.map { |key, value| key.to_s+"="+value.to_s }
     generate_query_string = URI.escape(total_param.join("&"))
-    # puts "1111........."
-    # puts base_url + generate_query_string
-    # puts "============ "
     data = HTTParty.post(base_url + generate_query_string).parsed_response.to_json #Hash2JSON
     response = Crack::JSON.parse(data)
   end
