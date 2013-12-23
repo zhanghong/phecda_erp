@@ -20,15 +20,27 @@ gem 'cancan'
 gem 'awesome_nested_set'
 gem "rails-settings-cached", "0.3.1"
 require 'yaml'
+gem 'simple_form'
 
 group :doc do
  gem 'sdoc', require: false
+end
+
+group :development do
+  gem 'letter_opener'
+  gem 'quiet_assets'
 end
 
 group :development, :test do
 	gem "rspec"
   gem "rspec-rails"
   gem "factory_girl_rails"
-  gem "mocha"
+  # gem "mocha"
   #gem "rcov"
-end	
+
+  # gem 'minitest-rails'
+  # gem 'minitest-spec-rails'
+  # gem 'minitest-rails-capybara'
+  # gem 'minitest-emoji'
+  # gem 'minitest-colorize'
+end
