@@ -1,6 +1,7 @@
 #source 'https://rubygems.org'
 source 'http://ruby.taobao.org'
 
+require "cgi"
 gem 'rails', '4.0.0'
 gem 'mysql2'
 gem 'sass-rails', '~> 4.0.0'
