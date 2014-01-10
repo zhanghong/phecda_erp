@@ -20,8 +20,27 @@ class Tb::Shop < ActiveRecord::Base
   has_many    :categories,  class_name: "Tb::Category",   foreign_key: "shop_id"
   has_many    :products,  class_name: "Tb::Product",   foreign_key: "shop_id"
   has_many    :sku,  class_name: "Tb::Product",   foreign_key: "shop_id"
-  has_many    :properties,  class_name: "Tb::Property",   foreign_key: "shop_id" 
-  has_many    :property_values,  class_name: "Tb::PropertyValue",   foreign_key: "shop_id" 
+  has_many    :properties,  class_name: "Tb::Property",   foreign_key: "shop_id"
+  has_many    :property_values,  class_name: "Tb::PropertyValue",   foreign_key: "shop_id"
+
+  def self.create_by_oauth(auth_hash)
+    shop = find_or_initialize_by(user_id: auth_hash[:taobao_user_id], nick: auth_hash[:taobao_user_nick])
+    shop.update(auth_type: "oauth2")
+
+    app_token = Tb::AppToken.find_or_create_by(shop_id: shop.id)
+    token_info = auth_hash["credentials"].merge(auth_hash["extra"]["raw_info"])
+    mappings = {"token" => "access_token", "taobao_user_id" => "user_id", "taobao_user_nick" => "nick"}
+    token_info.keys.each do |k|
+      token_info[mappings[k]] = token_info.delete(k) if mappings[k]
+    end
+    token_info["expires_at"] = Time.at(token_info["expires_at"].to_i)
+    token_info.each do |k, v|
+      app_token.send("#{k}=", v)
+    end
+    app_token.save
+
+    shop.pull_taobao_info
+  end
 
   # shop免签授权
   def self.create_by_authorization_code(code)
@@ -64,7 +83,7 @@ class Tb::Shop < ActiveRecord::Base
 
     mappings = {"taobao_user_id" => "user_id", "taobao_user_nick" => "nick"}
     res.keys.each do |k|
-      res[k] = CGI.unescape(res[k]) if res[k].is_a?(String) 
+      res[k] = CGI.unescape(res[k]) if res[k].is_a?(String)
       res[mappings[k]] = res.delete(k) if mappings[k]
     end
     app_token.update(res)
