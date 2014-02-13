@@ -1,3 +1,4 @@
+# encoding : utf-8 -*-
 # create_table "tb_categories", force: true do |t|
 #   t.string   "name",       limit: 30, default: ""
 #   t.integer  "shop_id",               default: 0

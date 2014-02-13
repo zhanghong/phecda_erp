@@ -1,3 +1,4 @@
+# encoding : utf-8 -*-
 # create_table "tb_products", force: true do |t|
 #   t.integer  "shop_id"
 #   t.integer  "category_id",                                                  default: 0

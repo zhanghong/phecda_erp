@@ -1,3 +1,4 @@
+# encoding : utf-8 -*-
 # create_table "users", force: true do |t|
 #   t.string   "name",                   limit: 20, default: "", null: false
 #   t.string   "mobile",                 limit: 13, default: "", null: false

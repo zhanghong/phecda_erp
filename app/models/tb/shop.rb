@@ -1,3 +1,4 @@
+# encoding : utf-8 -*-
 # create_table "tb_shops", force: true do |t|
 #   t.integer  "account_id",     limit: 8,   default: 0
 #   t.string   "cid",            limit: 50,  default: ""

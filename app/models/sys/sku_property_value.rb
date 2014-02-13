@@ -1,3 +1,4 @@
+# encoding : utf-8 -*-
 # create_table "sys_sku_property_values", force: true do |t|
 #   t.integer  "sku_id",            default: 0
 #   t.integer  "property_value_id", default: 0

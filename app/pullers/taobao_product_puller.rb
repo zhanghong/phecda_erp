@@ -1,3 +1,4 @@
+# encoding : utf-8 -*-
 class TaobaoProductPuller
   def self.pull_shop_categories(shop)
     return unless shop.is_a?(Tb::Shop)
