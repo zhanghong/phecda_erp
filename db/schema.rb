@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140110095857) do
+ActiveRecord::Schema.define(version: 20140213020510) do
 
   create_table "accounts", force: true do |t|
     t.string   "name",       limit: 30, default: ""
@@ -186,7 +186,7 @@ ActiveRecord::Schema.define(version: 20140110095857) do
     t.string   "template_id",              limit: 20,                          default: ""
     t.string   "features",                                                     default: ""
     t.integer  "valid_thru",                                                   default: 7
-    t.string   "order_id",                 limit: 20,                          default: ""
+    t.string   "outer_id",                 limit: 20,                          default: ""
     t.string   "auto_fill",                limit: 20,                          default: ""
     t.string   "cid",                      limit: 20,                          default: ""
     t.string   "seller_cids",                                                  default: ""
@@ -208,7 +208,7 @@ ActiveRecord::Schema.define(version: 20140110095857) do
     t.boolean  "has_warranty"
     t.boolean  "has_showcase"
     t.datetime "tb_modified_at"
-    t.string   "increment",                                                    default: ""
+    t.string   "price_increment",                                              default: ""
     t.string   "approve_status",           limit: 15,                          default: "instock"
     t.string   "postage_id",               limit: 20,                          default: ""
     t.string   "product_id",               limit: 20,                          default: ""
@@ -277,6 +277,8 @@ ActiveRecord::Schema.define(version: 20140110095857) do
     t.string   "product_id", limit: 30
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "quantity",              default: 0
+    t.string   "ts_id",      limit: 30, default: ""
   end
 
   add_index "tb_skus", ["shop_id", "product_id"], name: "idx_by_shop_id_and_product_id", using: :btree

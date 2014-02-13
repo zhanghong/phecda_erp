@@ -15,6 +15,7 @@ gem 'crack'
 gem 'httparty'
 gem 'omniauth'
 gem 'omniauth-oauth2'
+# gem 'omniauth-weibo-oauth2'
 gem 'taobao_fu_reload', "~> 1.1.2"
 gem 'devise'
 gem 'cancan'
@@ -30,6 +31,6 @@ group :development, :test do
 	gem "rspec"
   gem "rspec-rails"
   gem "factory_girl_rails"
-  gem "mocha"
+  #gem "mocha"
   #gem "rcov"
-end	
+end
