@@ -1,3 +1,4 @@
+# encoding : utf-8 -*-
 # create_table "tb_shops", force: true do |t|
 #   t.integer  "account_id",     limit: 8,   default: 0
 #   t.string   "cid",            limit: 50,  default: ""
@@ -24,16 +25,17 @@ class Tb::Shop < ActiveRecord::Base
   has_many    :property_values,  class_name: "Tb::PropertyValue",   foreign_key: "shop_id"
 
   def self.create_by_oauth(auth_hash)
-    shop = find_or_initialize_by(user_id: auth_hash[:taobao_user_id], nick: auth_hash[:taobao_user_nick])
-    shop.update(auth_type: "oauth2")
-
-    app_token = Tb::AppToken.find_or_create_by(shop_id: shop.id)
     token_info = auth_hash["credentials"].merge(auth_hash["extra"]["raw_info"])
     mappings = {"token" => "access_token", "taobao_user_id" => "user_id", "taobao_user_nick" => "nick"}
     token_info.keys.each do |k|
       token_info[mappings[k]] = token_info.delete(k) if mappings[k]
     end
     token_info["expires_at"] = Time.at(token_info["expires_at"].to_i)
+
+    shop = find_or_initialize_by(user_id: token_info["user_id"], nick: token_info[:nick])
+    shop.update(auth_type: "oauth2")
+
+    app_token = Tb::AppToken.find_or_create_by(shop_id: shop.id)
     token_info.each do |k, v|
       app_token.send("#{k}=", v)
     end

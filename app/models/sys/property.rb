@@ -1,3 +1,4 @@
+# encoding : utf-8 -*-
 # create_table "sys_properties", force: true do |t|
 #   t.integer  "account_id",            default: 0
 #   t.string   "name",       limit: 30, default: ""

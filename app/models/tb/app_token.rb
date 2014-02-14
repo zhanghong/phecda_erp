@@ -1,3 +1,4 @@
+# encoding : utf-8 -*-
 # create_table "tb_app_tokens", force: true do |t|
 #     t.integer  "shop_id"
 #     t.string   "user_id",       limit: 20, default: ""

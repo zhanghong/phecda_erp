@@ -1,3 +1,4 @@
+# encoding : utf-8 -*-
 # create_table "tb_properties", force: true do |t|
 #   t.integer  "shop_id",               default: 0
 #   t.string   "name",       limit: 30, default: ""

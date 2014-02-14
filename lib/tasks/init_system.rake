@@ -1,3 +1,4 @@
+# encoding : utf-8 -*-
 # rake init_system --trace
 task :init_system => :environment do
   admin = User.find_or_create_by(name: "admin")

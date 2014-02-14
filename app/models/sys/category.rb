@@ -1,3 +1,4 @@
+# encoding : utf-8 -*-
 # create_table "sys_categories", force: true do |t|
 #   t.string   "name",              limit: 30, default: ""
 #   t.integer  "account_id",                   default: 0

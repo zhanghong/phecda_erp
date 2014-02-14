@@ -5,7 +5,9 @@ module Tb::Query
 
   def self.get(options, shop_id = nil)
   	if app_token = Tb::AppToken.where(shop_id: shop_id).first
-      oauth_token_https_get(options, app_token)
+      puts "11111..........."
+      # oauth_token_https_get(options, app_token)
+      oauth_https_get(options, app_token)
     else
       TaobaoFu.select_app_session(shop_id)
       TaobaoFu.get(options)
