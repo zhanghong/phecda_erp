@@ -1,6 +1,11 @@
 #source 'https://rubygems.org'
 source 'http://ruby.taobao.org'
 
+# if RUBY_VERSION =~ /1.9/
+#   Encoding.default_external = Encoding::UTF_8
+#   Encoding.default_internal = Encoding::UTF_8
+# end
+
 require "cgi"
 gem 'rails', '4.0.0'
 gem 'mysql2'

@@ -18,6 +18,9 @@ class TaobaoProductPuller
         tb_category = Tb::Category.find_or_initialize_by(shop_id: shop.id, name: cat["name"])
         tb_category.update(cat)
       end
+      puts "response " * 8
+      p response
+      puts "response " * 8
     rescue
       puts "______________________"
       puts "shop: #{shop.id}"

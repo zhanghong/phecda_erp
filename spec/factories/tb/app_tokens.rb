@@ -1,5 +1,6 @@
+# encoding: utf-8
 FactoryGirl.define do
-	factory Tb::AppToken do 
+	factory Tb::AppToken do
 		association :shop
 		nick "sandbox_zhanghong"
 		user_id "3611765114"

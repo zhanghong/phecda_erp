@@ -1,5 +1,6 @@
+# encoding: utf-8
 FactoryGirl.define do
-	factory Tb::AppSession do 
+	factory Tb::AppSession do
 		association :shop
 		nick "sandbox_zhanghong"
     app_key "1021670514"

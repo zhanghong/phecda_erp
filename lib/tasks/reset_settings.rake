@@ -1,3 +1,4 @@
+# encoding : utf-8 -*-
 # rake reset_settings --trace RAILS_ENV=production
 task	:reset_settings => :environment do
 	tb_yaml_path = File.join(Rails.root, "config/taobao.yml")
