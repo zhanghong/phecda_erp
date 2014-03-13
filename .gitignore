@@ -8,3 +8,5 @@ tmp
 .ruby-gemset
 .ruby-version
 .rvmrc
+db/schema.rb
+public/assets/

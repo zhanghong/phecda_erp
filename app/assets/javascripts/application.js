@@ -11,6 +11,10 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require jquery_ujs
+//= require ace-extra.min
+//= require bootstrap.min
+//= require ace-elements.min
+//= require ace.min
+// = require_tree .
